@@ -1,0 +1,47 @@
+From: OpenFactory Builds <builds@openfactory.tech>
+Date: Thu, 12 Nov 2026 19:40:00 +0000
+Subject: Treat R_X86_64_PLT32 as R_X86_64_PC32
+
+gcc 14 emits PLT32 for function calls. grub-mkimage only knew PC32, so
+building the EFI monolithic image failed with relocation 0x4.
+
+--- a/util/grub-mkimagexx.c
++++ b/util/grub-mkimagexx.c
+@@ -832,6 +832,7 @@
+ 		  break;
+ 
+ 		case R_X86_64_PC32:
++		case R_X86_64_PLT32:
+ 		  {
+ 		    grub_uint32_t *t32 = (grub_uint32_t *) target;
+ 		    *t32 = grub_host_to_target64 (grub_target_to_host32 (*t32)
+--- a/grub-core/kern/x86_64/dl.c
++++ b/grub-core/kern/x86_64/dl.c
+@@ -70,6 +70,7 @@
+ 	  break;
+ 
+ 	case R_X86_64_PC32:
++	case R_X86_64_PLT32:
+ 	  {
+ 	    grub_int64_t value;
+ 	    value = ((grub_int32_t) *addr32) + rel->r_addend + sym->st_value -
+--- a/grub-core/efiemu/i386/loadcore64.c
++++ b/grub-core/efiemu/i386/loadcore64.c
+@@ -98,6 +98,7 @@
+ 		    break;
+ 
+ 		  case R_X86_64_PC32:
++		  case R_X86_64_PLT32:
+ 		    err = grub_efiemu_write_value (addr,
+ 						   *addr32 + rel->r_addend
+ 						   + sym.off
+--- a/util/grub-module-verifier.c
++++ b/util/grub-module-verifier.c
+@@ -19,6 +19,7 @@
+       -1
+     }, (int[]){
+       R_X86_64_PC32,
++      R_X86_64_PLT32,
+       -1
+     }
+   },

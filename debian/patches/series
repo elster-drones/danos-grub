@@ -97,3 +97,4 @@ sb_force_signed_kernel.patch
 0106-efilinux-Fix-integer-overflows-in-grub_cmd_initrd.patch
 #tftp-roll-over-block-counter.patch
 efiemu-no-werror.patch
+x86_64-plt32-reloc.patch
