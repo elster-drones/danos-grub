@@ -34,7 +34,7 @@ else
 with_check := yes
 endif
 
-CC := gcc-6
+CC := gcc
 
 confflags = \
 	PACKAGE_VERSION="$(deb_version)" PACKAGE_STRING="GRUB $(deb_version)" \
