@@ -42,7 +42,8 @@ confflags = \
 	FREETYPE=$(CURDIR)/debian/freetype-config \
 	BUILD_FREETYPE=$(CURDIR)/debian/freetype-config \
 	--enable-grub-mkfont \
-	--disable-grub-emu-usb
+	--disable-grub-emu-usb \
+	--disable-werror
 substvars =
 
 AUTOGEN_DEB_FILES = config templates preinst postinst postrm dirs install links maintscript
