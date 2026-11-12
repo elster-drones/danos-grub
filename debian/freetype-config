@@ -1,0 +1,4 @@
+#!/bin/sh
+# GRUB 2.02's configure still calls freetype-config. Debian 13's
+# libfreetype6-dev only exposes freetype2 through pkg-config.
+exec pkg-config freetype2 "$@"

@@ -39,6 +39,8 @@ CC := gcc
 confflags = \
 	PACKAGE_VERSION="$(deb_version)" PACKAGE_STRING="GRUB $(deb_version)" \
 	CC=$(CC) TARGET_CC=$(CC) \
+	FREETYPE=$(CURDIR)/debian/freetype-config \
+	BUILD_FREETYPE=$(CURDIR)/debian/freetype-config \
 	--enable-grub-mkfont \
 	--disable-grub-emu-usb
 substvars =
