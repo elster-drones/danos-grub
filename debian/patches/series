@@ -98,3 +98,4 @@ sb_force_signed_kernel.patch
 #tftp-roll-over-block-counter.patch
 efiemu-no-werror.patch
 x86_64-plt32-reloc.patch
+dejavu-font-path.patch
